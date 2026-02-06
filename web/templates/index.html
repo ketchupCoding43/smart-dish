@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YOLO Food Invoice System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 40px;
+        }
+        .card {
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .btn-custom {
+            width: 180px;
+            margin-right: 10px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">YOLO Food Invoice System</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="d-flex justify-content-center mt-4">
+        <input type="file" name="food_image" class="form-control w-50 me-2" required>
+        <button type="submit" class="btn btn-primary btn-custom">Detect & Generate Invoice</button>
+    </form>
+
+    {% if image_filename %}
+        <div class="card">
+            <h4>Predicted Plate Image:</h4>
+            <img src="{{ url_for('uploaded_file', filename=image_filename) }}" alt="Predicted Plate">
+        </div>
+    {% endif %}
+
+    {% if invoice %}
+        <div class="card">
+            <h4>Invoice ID: {{ invoice.invoice_id }}</h4>
+            <h5>User: {{ invoice.user_id }}</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in invoice.items %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.price }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th>Total</th>
+                        <th>{{ invoice.total }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
