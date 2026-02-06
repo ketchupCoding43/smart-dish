@@ -1,0 +1,14 @@
+train: ../train/images
+val: ../valid/images
+#val: ../train/images
+test: ../test/images
+
+nc: 8
+names: ['Curd', 'Dal', 'Pickle', 'Rice', 'Roti', 'Salad', 'Sweet', 'Vegetable']
+
+roboflow:
+  workspace: sohams-projects
+  project: new-food-dataset
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/sohams-projects/new-food-dataset/dataset/1
